@@ -6,35 +6,31 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Slider,
   Button,
   CssBaseline,
+  Slider,
 } from "@mui/material";
-import { Search, MapPin, User, DollarSign } from "lucide-react";
+import { Search, MapPin, User, Languages, DollarSign } from "lucide-react";
 
-const Filter = () => {
+const Filter = ({ onSearch }) => {
   const [city, setCity] = useState("");
   const [gender, setGender] = useState("");
-  const [salaryRange, setSalaryRange] = useState([10000, 50000]);
+  const [language, setLanguage] = useState("");
+  const [salaryRange, setSalaryRange] = useState([2000, 10000]);
 
   const handleSearch = () => {
-    console.log({
-      city,
-      gender,
-      salaryRange,
-    });
+    if (onSearch) {
+      onSearch({
+        city,
+        gender,
+        language,
+        salaryRange,
+      });
+    }
   };
 
-  const handleSliderChange = (event, newValue) => {
-    setSalaryRange(newValue);
-  };
-
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(value);
+  const formatSalary = (value) => {
+    return `${value}`;
   };
 
   return (
@@ -46,107 +42,159 @@ const Filter = () => {
           position: "sticky",
           top: 0,
           zIndex: 50,
-          backgroundColor: "#ffffff",
+          backgroundColor: "rgba(255, 255, 255, 0.98)",
           borderBottom: "1px solid #e0e0e0",
-          boxShadow: 1,
+          boxShadow: 2,
+          backdropFilter: "blur(8px)",
         }}
       >
         <Box
           maxWidth="lg"
           mx="auto"
           px={{ xs: 2, md: 4 }}
-          py={2}
+          py={3}
           display="flex"
           flexWrap="wrap"
-          alignItems="center"
+          alignItems="flex-start"
           justifyContent="center"
           gap={{ xs: 2, md: 3 }}
         >
           {/* City Dropdown */}
           <FormControl sx={{ minWidth: 150 }} size="small">
             <InputLabel>
-              <MapPin size={16} style={{ marginRight: 4 }} />
-              City
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <MapPin size={16} />
+                City
+              </Box>
             </InputLabel>
             <Select
               value={city}
-              label="City"
+              label={
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <MapPin size={16} />
+                  City
+                </Box>
+              }
               onChange={(e) => setCity(e.target.value)}
             >
-              <MenuItem value="">Select City</MenuItem>
-              <MenuItem value="Mumbai">Mumbai</MenuItem>
-              <MenuItem value="Delhi">Delhi</MenuItem>
-              <MenuItem value="Bangalore">Bangalore</MenuItem>
-              <MenuItem value="Chennai">Chennai</MenuItem>
+              <MenuItem value="">Any City</MenuItem>
+              <MenuItem value="Toronto">Toronto</MenuItem>
+              <MenuItem value="Vancouver">Vancouver</MenuItem>
+              <MenuItem value="Montreal">Montreal</MenuItem>
+              <MenuItem value="Ottawa">Ottawa</MenuItem>
             </Select>
           </FormControl>
 
           {/* Gender Dropdown */}
           <FormControl sx={{ minWidth: 150 }} size="small">
             <InputLabel>
-              <User size={16} style={{ marginRight: 4 }} />
-              Gender
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <User size={16} />
+                Gender
+              </Box>
             </InputLabel>
             <Select
               value={gender}
-              label="Gender"
+              label={
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <User size={16} />
+                  Gender
+                </Box>
+              }
               onChange={(e) => setGender(e.target.value)}
             >
-              <MenuItem value="">Select Gender</MenuItem>
+              <MenuItem value="">Any Gender</MenuItem>
               <MenuItem value="Male">Male</MenuItem>
               <MenuItem value="Female">Female</MenuItem>
-              <MenuItem value="Other">Other</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* Language Dropdown */}
+          <FormControl sx={{ minWidth: 150 }} size="small">
+            <InputLabel>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Languages size={16} />
+                Language
+              </Box>
+            </InputLabel>
+            <Select
+              value={language}
+              label={
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Languages size={16} />
+                  Language
+                </Box>
+              }
+              onChange={(e) => setLanguage(e.target.value)}
+            >
+              <MenuItem value="">Any Language</MenuItem>
+              <MenuItem value="English">English</MenuItem>
+              <MenuItem value="French">Hindi</MenuItem>
+              <MenuItem value="Spanish">Marathi</MenuItem>
+              {/* <MenuItem value="Mandarin">Mandarin</MenuItem> */}
             </Select>
           </FormControl>
 
           {/* Salary Range Slider */}
-          <Box sx={{ minWidth: 250 }}>
+          <Box sx={{ minWidth: 200, maxWidth: 300 }}>
             <Typography
               variant="subtitle2"
-              sx={{ mb: 1, display: "flex", alignItems: "center" }}
+              sx={{
+                mb: 1,
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                color: "text.secondary",
+              }}
             >
-              <DollarSign size={16} style={{ marginRight: 4 }} />
-              Salary Range ({formatCurrency(salaryRange[0])} - {formatCurrency(salaryRange[1])})
+              
+              Salary Range (Monthly)
             </Typography>
             <Slider
               value={salaryRange}
-              onChange={handleSliderChange}
+              onChange={(e, newValue) => setSalaryRange(newValue)}
               valueLabelDisplay="auto"
-              min={5000}
-              max={100000}
+              valueLabelFormat={formatSalary}
+              min={1000}
+              max={20000}
               step={500}
-              sx={{ color: "#1976d2" }}
+              sx={{
+                color: "#8e24aa",
+                "& .MuiSlider-valueLabel": {
+                  backgroundColor: "#8e24aa",
+                },
+              }}
             />
             <Box display="flex" justifyContent="space-between" mt={0.5}>
-              <Typography variant="caption">₹5K</Typography>
-              <Typography variant="caption">₹100K</Typography>
+              <Typography variant="caption" color="text.secondary">
+                {formatSalary(salaryRange[0])}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {formatSalary(salaryRange[1])}
+              </Typography>
             </Box>
           </Box>
 
           {/* Search Button */}
-          <Box display="flex" alignItems="flex-end">
-            <Button
-              variant="contained"
-              color="primary"
-              size="medium"
-              onClick={handleSearch}
-              startIcon={<Search size={16} />}
-              sx={{
-                px: 3,
-                py: 1,
-                mt: { xs: 1, md: 4 },
-                borderRadius: 2,
-                fontWeight: 600,
-                textTransform: "none",
-                boxShadow: 2,
-                "&:hover": {
-                  backgroundColor: "#1565c0",
-                },
-              }}
-            >
-              Search
-            </Button>
-          </Box>
+          <Button
+            variant="contained"
+            onClick={handleSearch}
+            startIcon={<Search size={16} />}
+            sx={{
+              px: 4,
+              py: 1,
+              height: 40,
+              borderRadius: 2,
+              fontWeight: 600,
+              textTransform: "none",
+              backgroundColor: "#8e24aa",
+              "&:hover": {
+                backgroundColor: "#6a1b9a",
+              },
+            }}
+          >
+            Search
+          </Button>
         </Box>
       </Box>
     </>

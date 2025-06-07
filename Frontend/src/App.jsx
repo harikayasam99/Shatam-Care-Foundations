@@ -1,13 +1,17 @@
 import React from 'react'
 import './App.css'
 import LearningPage from './pages/LearningPage'
+import CareGiver from './pages/CareGiver'
+import CareSeeker from './pages/CareSeeker'
 
 function App() {
 
   return (
     <>
       <div>
-        <LearningPage/>
+        {/* <LearningPage/> */}
+        <CareGiver/>
+        {/* <CareSeeker/> */}
       </div>
     </>
   )

@@ -1,164 +1,319 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  Card,
   Typography,
   Grid,
   Box,
   Rating,
   Chip,
   Stack,
+  Paper,
+  Avatar,
+  Button,
+  Container,
+  Divider,
 } from "@mui/material";
-import { MapPin, Languages } from "lucide-react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import { MapPin, Languages, Book, Clock } from "lucide-react";
+import LearningPage from "./LearningPage";
 
-const caregivers = [
+// Current caregiver data
+const currentCaregiver = {
+  name: "Priya Singh",
+  age: 32,
+  gender: "Female",
+  location: "Mumbai, India",
+  languages: ["Hindi", "English", "Marathi"],
+  experience: "5 years",
+  specializations: ["Elderly Care", "Medical Assistance", "Physical Therapy"],
+  rating: 4.8,
+  totalClients: 25,
+  level: "1",
+  about: "Experienced healthcare professional with expertise in elderly care and medical assistance. Committed to providing compassionate and quality care.",
+  avatarColor: "#8e24aa",
+};
+
+// Booked care seekers
+const bookedCareSeekers = [
   {
     id: 1,
-    name: "Priya Singh",
-    address: "22A Park Lane, New Delhi",
-    gender: "Female",
-    age: 32,
-    salary: "₹25,000/month",
-    language: "Hindi, English",
+    name: "Raj Malhotra",
+    age: 68,
+    gender: "Male",
+    address: "22A Park Lane, Mumbai",
+    medicalConditions: ["Diabetes", "Hypertension"],
     rating: 4.7,
-    feedback: "Very attentive and professional.",
+    startDate: "2023-06-01",
+    feedback: "Very cooperative and follows medical routines well.",
     avatarColor: "#009688",
   },
   {
     id: 2,
-    name: "Rahul Mehta",
+    name: "Meera Kapoor",
+    age: 75,
+    gender: "Female",
     address: "17 MG Road, Mumbai",
-    gender: "Male",
-    age: 40,
-    salary: "₹28,000/month",
-    language: "Marathi, Hindi",
+    medicalConditions: ["Arthritis", "Vision Impairment"],
     rating: 4.9,
-    feedback: "Great with elderly care and punctual.",
+    startDate: "2023-05-15",
+    feedback: "A wonderful person to work with, very understanding.",
     avatarColor: "#3f51b5",
   },
 ];
 
 const CareGiver = () => {
+  const [showLearning, setShowLearning] = useState(false);
+
+  if (showLearning) {
+    return <LearningPage />;
+  }
+
   return (
     <Box
       sx={{
         minHeight: "100vh",
-        minWidth: "100vw",
-        background: "linear-gradient(135deg, #6a1b9a 0%, #8e24aa 50%, #e040fb 100%)",
-        py: 8,
-        px: 4,
-        position: "fixed",
-        top: 0,
-        left: 0,
-        zIndex: -1,
+        bgcolor: "#f5f5f5",
+        pt: 4,
+        pb: 4,
       }}
     >
-      <Box
-        sx={{
-          position: "relative",
-          zIndex: 1,
-          maxWidth: "1400px",
-          margin: "0 auto",
-        }}
-      >
-        <Typography
-          variant="h3"
-          align="center"
-          color="white"
-          fontWeight={700}
-          gutterBottom
+      <Container maxWidth="lg">
+        {/* Caregiver Info Section */}
+        <Paper
+          elevation={1}
+          sx={{
+            p: 4,
+            mb: 4,
+            borderRadius: 2,
+            bgcolor: "white",
+          }}
         >
-          Care Givers
-        </Typography>
-
-        <Grid container spacing={4} justifyContent="center">
-          {caregivers.map((giver) => (
-            <Grid item xs={12} sm={6} md={4} key={giver.id}>
-              <Card
-                elevation={6}
+          <Grid container spacing={4} alignItems="flex-start">
+            <Grid item xs={12} md={3} sx={{ textAlign: "center" }}>
+              <Avatar
                 sx={{
-                  borderTop: `5px solid ${giver.avatarColor}`,
-                  borderRadius: 3,
-                  p: 3,
-                  height: 370,
-                  width: 320,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  position: "relative",
-                  boxSizing: "border-box",
-                  background: "#fff",
+                  width: 120,
+                  height: 120,
+                  bgcolor: currentCaregiver.avatarColor,
+                  fontSize: "2.5rem",
+                  margin: "0 auto",
+                  mb: 2,
                 }}
               >
-                <AccountCircleIcon
+                {currentCaregiver.name[0]}
+              </Avatar>
+              <Typography variant="h5" sx={{ mb: 1 }}>
+                {currentCaregiver.name}
+              </Typography>
+              <Stack spacing={1} alignItems="center">
+                <Rating 
+                  value={currentCaregiver.rating} 
+                  readOnly 
+                  precision={0.1}
                   sx={{
-                    color: giver.avatarColor,
-                    fontSize: 80,
-                    mb: 2,
+                    '& .MuiRating-iconFilled': {
+                      color: currentCaregiver.avatarColor,
+                    }
                   }}
                 />
-
-                <Typography variant="h6" fontWeight={600} gutterBottom>
-                  {giver.name}
+                <Typography variant="subtitle1" color="text.secondary">
+                  {currentCaregiver.rating} • {currentCaregiver.totalClients} clients
                 </Typography>
+              </Stack>
+            </Grid>
 
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <MapPin size={16} />
-                  <Typography variant="body2" color="text.secondary">
-                    {giver.address}
-                  </Typography>
+            <Grid item xs={12} md={5}>
+              <Stack spacing={2}>
+                <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+                  <Chip
+                    label={`${currentCaregiver.age} years`}
+                    size="small"
+                    variant="outlined"
+                  />
+                  <Chip
+                    label={currentCaregiver.gender}
+                    size="small"
+                    variant="outlined"
+                  />
+                  <Chip
+                    label={currentCaregiver.location}
+                    size="small"
+                    variant="outlined"
+                  />
+                  <Chip
+                    label={`Level ${currentCaregiver.level}`}
+                    size="small"
+                    color="primary"
+                  />
                 </Stack>
+                <Typography variant="body1" color="text.secondary">
+                  {currentCaregiver.about}
+                </Typography>
+              </Stack>
+            </Grid>
 
-                <Chip
-                  label={`${giver.gender}, ${giver.age}`}
-                  color="primary"
-                  size="small"
-                  variant="outlined"
-                  sx={{ my: 2 }}
-                />
-
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <MonetizationOnIcon sx={{ color: "green", fontSize: 18 }} />
-                  <Typography variant="body2">{giver.salary}</Typography>
-                </Stack>
-
-                <Stack direction="row" spacing={1} alignItems="center" mt={1}>
-                  <Languages size={16} color="#ff9800" />
-                  <Typography variant="body2" color="text.secondary">
-                    {giver.language}
+            <Grid item xs={12} md={4}>
+              <Stack spacing={3}>
+                <Box>
+                  <Typography variant="h6" gutterBottom>
+                    Specializations
                   </Typography>
-                </Stack>
-
-                <Box mt={3}>
-                  <Rating value={giver.rating} readOnly size="small" />
-                  <Typography
-                    variant="body2"
-                    fontStyle="italic"
-                    color="text.secondary"
-                    align="center"
-                  >
-                    "{giver.feedback}"
-                  </Typography>
+                  <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+                    {currentCaregiver.specializations.map((spec) => (
+                      <Chip
+                        key={spec}
+                        label={spec}
+                        size="small"
+                        variant="outlined"
+                      />
+                    ))}
+                  </Stack>
                 </Box>
+                <Box>
+                  <Typography variant="h6" gutterBottom>
+                    Languages
+                  </Typography>
+                  <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+                    {currentCaregiver.languages.map((lang) => (
+                      <Chip
+                        key={lang}
+                        label={lang}
+                        size="small"
+                        variant="outlined"
+                      />
+                    ))}
+                  </Stack>
+                </Box>
+              </Stack>
+            </Grid>
+          </Grid>
+        </Paper>
 
-                <Box
-                  sx={{
-                    width: 10,
-                    height: 10,
-                    bgcolor: giver.avatarColor,
-                    borderRadius: "50%",
-                    position: "absolute",
-                    top: 16,
-                    right: 16,
-                    opacity: 0.7,
-                  }}
-                />
-              </Card>
+        {/* Learning Section */}
+        <Paper
+          elevation={1}
+          sx={{
+            textAlign: "center",
+            p: 4,
+            mb: 4,
+            borderRadius: 2,
+            bgcolor: "white",
+          }}
+        >
+          <Typography variant="h5" gutterBottom>
+            Enhance Your Caregiving Skills
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Access our comprehensive learning resources and get certified in
+            various caregiving specializations.
+          </Typography>
+          <Button
+            variant="contained"
+            size="large"
+            startIcon={<Book />}
+            onClick={() => setShowLearning(true)}
+          >
+            Start Learning
+          </Button>
+        </Paper>
+
+        {/* Care Seekers Section */}
+        <Typography variant="h5" gutterBottom>
+          Your Care Seekers
+        </Typography>
+        <Grid container spacing={3}>
+          {bookedCareSeekers.map((seeker) => (
+            <Grid item xs={12} md={6} key={seeker.id}>
+              <Paper
+                elevation={1}
+                sx={{
+                  p: 3,
+                  borderRadius: 2,
+                  bgcolor: "white",
+                  height: "100%",
+                }}
+              >
+                <Stack spacing={2}>
+                  <Box display="flex" alignItems="center">
+                    <Avatar
+                      sx={{
+                        bgcolor: seeker.avatarColor,
+                        width: 48,
+                        height: 48,
+                        mr: 2,
+                      }}
+                    >
+                      {seeker.name[0]}
+                    </Avatar>
+                    <Box>
+                      <Typography variant="subtitle1">{seeker.name}</Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {seeker.gender}, {seeker.age} years
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Divider />
+
+                  <Stack spacing={2}>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <MapPin size={16} />
+                      <Typography variant="body2">{seeker.address}</Typography>
+                    </Stack>
+
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Clock size={16} />
+                      <Typography variant="body2">
+                        Started: {new Date(seeker.startDate).toLocaleDateString()}
+                      </Typography>
+                    </Stack>
+                  </Stack>
+
+                  <Box>
+                    <Typography variant="subtitle2" gutterBottom>
+                      Medical Conditions
+                    </Typography>
+                    <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+                      {seeker.medicalConditions.map((condition) => (
+                        <Chip
+                          key={condition}
+                          label={condition}
+                          size="small"
+                          variant="outlined"
+                        />
+                      ))}
+                    </Stack>
+                  </Box>
+
+                  <Box>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Rating 
+                        value={seeker.rating} 
+                        readOnly 
+                        precision={0.1}
+                        size="small"
+                        sx={{
+                          '& .MuiRating-iconFilled': {
+                            color: seeker.avatarColor,
+                          }
+                        }}
+                      />
+                      <Typography variant="body2" color="text.secondary">
+                        ({seeker.rating})
+                      </Typography>
+                    </Stack>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ mt: 1 }}
+                    >
+                      "{seeker.feedback}"
+                    </Typography>
+                  </Box>
+                </Stack>
+              </Paper>
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Container>
     </Box>
   );
 };
