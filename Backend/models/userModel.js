@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchmea = new mongoose.Schema({
-
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -9,14 +8,13 @@ const userSchmea = new mongoose.Schema({
   },
   password: {
     type: String,
-    required:true
+    required: true
   },
   type: {
-    trype: String,
+    type: String, // Fixed: changed 'trype' to 'type'
     enum: ['seeker', 'giver', 'admin'],
-    default: 'seeker', // Default type is 'seeker'
-    
+    default: 'seeker'
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model('User', userSchmea);
+module.exports = mongoose.model('User', userSchema);
