@@ -12,8 +12,14 @@ import {
   Button,
   useTheme,
   useMediaQuery,
+  Fab,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
-import { MapPin, Languages, DollarSign } from "lucide-react";
+import { MapPin, Languages, DollarSign, AlertCircle, Phone } from "lucide-react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Filter from "../components/Filter";
 
@@ -62,6 +68,7 @@ const CareSeeker = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [filteredCareGivers, setFilteredCareGivers] = useState(careGivers);
+  const [sosDialogOpen, setSosDialogOpen] = useState(false);
 
   const handleSearch = (searchFilters) => {
     const filtered = careGivers.filter((caregiver) => {
@@ -75,19 +82,107 @@ const CareSeeker = () => {
     setFilteredCareGivers(filtered);
   };
 
+  const handleSosClick = () => {
+    setSosDialogOpen(true);
+  };
+
+  const handleSosClose = () => {
+    setSosDialogOpen(false);
+  };
+
+  const handleEmergencyCall = () => {
+    // TODO: Implement emergency call functionality
+    console.log("Emergency call initiated");
+    setSosDialogOpen(false);
+  };
+
   return (
-    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", position: "relative" }}>
       {/* Filter Component */}
       <Filter onSearch={handleSearch} />
       
-      <Container 
-        maxWidth="xl" 
-        sx={{ 
-          pt: 10,
-          pb: 4,
-          px: { xs: 2, sm: 3, md: 4 }
+      {/* SOS Button */}
+      <Fab
+        color="error"
+        aria-label="emergency"
+        sx={{
+          position: "fixed",
+          bottom: 32,
+          right: 32,
+          width: 80,
+          height: 80,
+          backgroundColor: "#d32f2f",
+          "&:hover": {
+            backgroundColor: "#b71c1c",
+            transform: "scale(1.1)",
+          },
+          transition: "transform 0.2s",
+          zIndex: 1000,
+          boxShadow: "0 4px 20px rgba(211, 47, 47, 0.3)",
+        }}
+        onClick={handleSosClick}
+      >
+        <Stack spacing={1} alignItems="center">
+          <AlertCircle size={32} />
+          <Typography variant="button" fontSize={16} fontWeight="bold">
+            SOS
+          </Typography>
+        </Stack>
+      </Fab>
+
+      {/* Emergency Dialog */}
+      <Dialog
+        open={sosDialogOpen}
+        onClose={handleSosClose}
+        aria-labelledby="emergency-dialog-title"
+        PaperProps={{
+          sx: {
+            borderTop: "4px solid #d32f2f",
+            minWidth: { xs: "90%", sm: 400 },
+          }
         }}
       >
+        <DialogTitle id="emergency-dialog-title" sx={{ bgcolor: "#ffebee" }}>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <AlertCircle color="#d32f2f" />
+            <Typography color="#d32f2f" fontWeight="bold">
+              Medical Emergency
+            </Typography>
+          </Stack>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ mt: 2 }}>
+            This will:
+            <ul>
+              <li>Alert your assigned caregiver immediately</li>
+              <li>Contact emergency medical services if needed</li>
+              <li>Notify your emergency contacts</li>
+            </ul>
+            Do you want to proceed with the emergency call?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ p: 2, bgcolor: "#fff5f5" }}>
+          <Button onClick={handleSosClose} color="inherit">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleEmergencyCall}
+            variant="contained"
+            color="error"
+            startIcon={<Phone />}
+            autoFocus
+            sx={{
+              px: 3,
+              py: 1,
+              fontWeight: "bold",
+            }}
+          >
+            Call Emergency
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Container maxWidth="xl" sx={{ pt: 10, pb: 4, px: { xs: 2, sm: 3, md: 4 } }}>
         {/* User Info Component */}
         <Paper
           elevation={3}
