@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import './App.css'
-
+import AdminDashboard from './pages/admin_page'
+import CaregiverAttendance from './pages/attendance'
+import Navbar from './components/Navbar'
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
-        Hello
+       <CaregiverAttendance />
+       {/* <Navbar/> */}
       </div>
     </>
   )
