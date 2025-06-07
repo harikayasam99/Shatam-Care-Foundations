@@ -1,18 +1,13 @@
-import { useState } from 'react'
+import React from 'react'
 import './App.css'
-import CareSeeker from './pages/CareSeeker'
-import CareGiver from './pages/CareGiver'
-import Filter from './components/Filter'
+import LearningPage from './pages/LearningPage'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
-        {/* <CareSeeker/> */}
-        <CareGiver/>
-        {/* <Filter/> */}
+        <LearningPage/>
       </div>
     </>
   )
