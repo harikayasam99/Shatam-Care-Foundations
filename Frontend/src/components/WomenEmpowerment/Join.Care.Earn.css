@@ -1,0 +1,68 @@
+.landing-page {
+  background-image: url('/background_image.jpeg'); /* or import image if using import method */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent dark overlay for readability */
+  min-height: 100vh;
+  padding: 4rem 1rem;
+}
+
+.content-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  color: #222;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+h1, h2 {
+  color: #b10059;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.highlight {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #d62828;
+  margin: 1rem 0;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  margin-top: 1.5rem;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+table th {
+  background-color: #f8f8f8;
+}
