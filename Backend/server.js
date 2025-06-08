@@ -22,8 +22,16 @@ app.get("/", (req, res) => {
 });
 
 // Define routes
+
+
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/caretakers", require("./routes/careTakerRoutes"));
+
+//admin routes
+app.use("/api/admin", require("./routes/adminRoutes"));
+
+
+app.use('/api/emergency', require('./routes/EmergencyRoutes'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
