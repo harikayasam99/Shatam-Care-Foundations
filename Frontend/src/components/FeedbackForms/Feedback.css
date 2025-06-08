@@ -1,0 +1,110 @@
+.feedback-form {
+  width: 100%;         /* Ensures it uses available width */
+  max-width: 800px;    /* Increase from 600px */
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.06);
+  font-family: sans-serif;
+  counter-reset: mcq-counter;
+}
+
+
+.feedback-form h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group.mcq-question {
+  counter-increment: mcq-counter;
+  position: relative;
+  padding-left: 2em;
+}
+
+.form-group.mcq-question > label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-group.mcq-question > label::before {
+  content: counter(mcq-counter) ". ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #2563eb;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.required {
+  color: red;
+}
+
+.stars {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.stars input[type="radio"] {
+  display: none;
+}
+
+.stars .star {
+  font-size: 24px;
+  color: gray;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.stars input[type="radio"]:checked + .star,
+.stars input[type="radio"]:hover + .star {
+  color: gold;
+}
+
+textarea {
+  width: 100%;
+  min-height: 80px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  resize: vertical;
+}
+
+button[type="submit"] {
+  background-color: #2563eb;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #1d4ed8;
+}
+
+.feedback-thankyou {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 2rem 0;
+  color: #2563eb;
+}
+
+@media (max-width: 600px) {
+  .feedback-form {
+    padding: 1rem;
+  }
+}

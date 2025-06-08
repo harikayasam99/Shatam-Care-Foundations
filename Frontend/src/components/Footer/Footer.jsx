@@ -5,7 +5,7 @@ const Footer = () => {
     <Box component="footer" sx={{ 
       py: 3, 
       px: 2, 
-      backgroundColor: '#2E3B55', 
+      backgroundColor: 'primary.main', // Changed to default MUI primary color
       color: 'white' 
     }}>
       <Divider sx={{ backgroundColor: 'rgba(255,255,255,0.2)', mb: 2 }} />
