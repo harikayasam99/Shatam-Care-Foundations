@@ -1,5 +1,5 @@
 .landing-page {
-  background-image: url('/download.jpeg'); /* or import image if using import method */
+  background-image: url('/background_image.jpeg'); /* or import image if using import method */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

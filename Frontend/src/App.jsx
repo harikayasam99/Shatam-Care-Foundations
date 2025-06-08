@@ -5,13 +5,15 @@ import Footer from './components/Footer/Footer';
 import Chatbot from './components/Chatbot/Chatbot';
 import { useState } from 'react';
 import { Chat as ChatIcon } from '@mui/icons-material';
+import NavBar from './components/Navbar';
 
 function App() {
   const [chatbotOpen, setChatbotOpen] = useState(false);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Header />
+      {/* <Header /> */}
+      <NavBar/>
       <Home />
       <Footer />
       

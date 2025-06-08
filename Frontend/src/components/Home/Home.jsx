@@ -1,11 +1,20 @@
 import { Box, Typography, Button, Container, Grid, Card, CardContent, Divider } from '@mui/material';
 import { useState, useEffect } from 'react';
+import we_1 from '../../assets/we_1.jpg';
+import we_3 from '../../assets/we_3.jpg';
+import we_6 from '../../assets/we_6.jpg';
+import we_7 from '../../assets/we_7.jpg';
+import we_4 from '../../assets/we_4.webp';
+import alzemerps from '../../assets/alzemerps.jpg';
+import mental_health from '../../assets/mental_health.webp';
+import physio from '../../assets/physio.jpeg';
+import we_5 from '../../assets/we_5.webp';
 
 const heroImages = [
-  { id: 1, alt: 'Elderly Care Training' },
-  { id: 2, alt: 'Caregiver Workshop' },
-  { id: 3, alt: 'Senior Health Checkup' },
-  { id: 4, alt: 'Community Support' },
+  { id: 1, alt: 'Elderly Care Training', src: we_1 },
+  { id: 2, alt: 'Caregiver Workshop', src: we_3 },
+  { id: 3, alt: 'Senior Health Checkup', src: we_6 },
+  { id: 4, alt: 'Community Support', src: we_7 },
 ];
 
 const programs = [
@@ -13,21 +22,25 @@ const programs = [
     title: 'Geriatric Care Training',
     description: 'Comprehensive training programs for caregivers focusing on elderly care techniques and compassion.',
     placeholder: 'Training Program Image',
+    src: we_4,
   },
   {
     title: "Alzheimer's Specialization",
     description: "Specialized courses for caring for patients with Alzheimer's and dementia.",
     placeholder: 'Alzheimer Care Image',
+    src: alzemerps,
   },
   {
     title: 'Mental Health Support',
     description: 'Training for psychologists to provide emotional support to elderly patients.',
     placeholder: 'Mental Health Image',
+    src: mental_health,
   },
   {
     title: 'Physiotherapy Training',
     description: 'Programs to train physiotherapists in geriatric rehabilitation techniques.',
     placeholder: 'Physiotherapy Image',
+    src: physio,
   },
 ];
 
@@ -54,41 +67,60 @@ const Home = () => {
       <Box
         sx={{
           width: '100%',
-          height: { xs: 250, md: 400 },
+          height: { xs: '300px', md: '400px' },
           overflow: 'hidden',
           position: 'relative',
           bgcolor: '#2E3B55',
           color: 'white',
           display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         {heroImages.map((img, idx) => (
           <Box
             key={img.id}
             sx={{
-              minWidth: '100%',
+              width: '100%',
               height: '100%',
               position: 'absolute',
               top: 0,
               left: 0,
-              transform: `translateX(${(idx - currentImage) * 100}%)`,
-              transition: 'transform 0.6s cubic-bezier(.4,0,.2,1)',
+              transition: 'opacity 0.6s ease-in-out',
+              opacity: idx === currentImage ? 1 : 0,
+              backgroundImage: `url(${img.src})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              px: 2,
               textAlign: 'center',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              },
             }}
           >
-            <Typography variant="h2" sx={{ fontWeight: 'bold', mb: 2, fontSize: { xs: '2rem', md: '3rem' } }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 'bold',
+                mb: 2,
+                fontSize: { xs: '2rem', md: '3rem' },
+                position: 'relative',
+                zIndex: 1,
+              }}
+            >
               Shatam Care Foundation
             </Typography>
-            <Typography variant="h5" sx={{ mb: 3 }}>
+            <Typography variant="h5" sx={{ position: 'relative', zIndex: 1 }}>
               Transforming Elderly Care in India
-            </Typography>
-            <Typography variant="body1" sx={{ maxWidth: 700, mx: 'auto', fontSize: { xs: '1rem', md: '1.2rem' } }}>
-              {img.alt} - Placeholder Image {img.id}
             </Typography>
           </Box>
         ))}
@@ -96,26 +128,32 @@ const Home = () => {
 
       {/* Mission Section */}
       <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
-        <Typography variant="h3" align="center" sx={{ fontWeight: 'bold', color: '#2E3B55', mb: 1 }}>
+        <Typography variant="h3" align="center" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>
           Our Mission
         </Typography>
-        <Divider sx={{ width: 100, height: 4, bgcolor: '#2E3B55', mx: 'auto', mb: 4 }} />
+        <Divider sx={{ width: 100, height: 4, bgcolor: 'primary.main', mx: 'auto', mb: 4 }} />
         <Typography align="center" sx={{ fontSize: '1.1rem', mb: 4 }}>
           Amrita is dedicated to transforming the landscape of elderly care in India by empowering low-income groups to become skilled geriatric caregivers. Our organization aims to promote healthy aging across the nation, with a particular focus on Alzheimer's care.
         </Typography>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
+        <Grid container spacing={4} alignItems="center" justifyContent="center">
+          <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
             <Box
               sx={{
                 height: 260,
-                bgcolor: '#e0e0e0',
                 borderRadius: 2,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                overflow: 'hidden',
+                width: '100%',
+                maxWidth: 400,
               }}
             >
-              <Typography>Placeholder: Caregiver Training Image</Typography>
+              <img
+                src={we_5}
+                alt="Caregiver Training"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -136,113 +174,95 @@ const Home = () => {
       </Container>
 
       {/* Programs Section */}
-      <Box sx={{ bgcolor: '#f5f5f5', py: { xs: 4, md: 8 } }}>
-        <Container maxWidth="lg">
-          <Typography variant="h3" align="center" sx={{ fontWeight: 'bold', color: '#2E3B55', mb: 1 }}>
-            Our Programs
-          </Typography>
-          <Divider sx={{ width: 100, height: 4, bgcolor: '#2E3B55', mx: 'auto', mb: 4 }} />
-          <Grid container spacing={4}>
-            {programs.map((program, idx) => (
-              <Grid item xs={12} sm={6} md={3} key={idx}>
-                <Card sx={{ height: '100%' }}>
-                  <Box
-                    sx={{
-                      height: 120,
-                      bgcolor: '#d0d0d0',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderTopLeftRadius: 4,
-                      borderTopRightRadius: 4,
-                    }}
-                  >
-                    <Typography>{program.placeholder}</Typography>
-                  </Box>
-                  <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-                      {program.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {program.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+  <Box sx={{ bgcolor: '#f5f5f5', py: { xs: 4, md: 8 } }}>
+    <Container maxWidth="lg">
+      <Typography variant="h3" align="center" sx={{ fontWeight: 'bold', color: '#2E3B55', mb: 1 }}>
+        Our Programs
+      </Typography>
+      <Divider sx={{ width: 100, height: 4, bgcolor: '#2E3B55', mx: 'auto', mb: 4 }} />
 
-      {/* Impact Section */}
-      <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
-        <Typography variant="h3" align="center" sx={{ fontWeight: 'bold', color: '#2E3B55', mb: 1 }}>
-          Our Impact
-        </Typography>
-        <Divider sx={{ width: 100, height: 4, bgcolor: '#2E3B55', mx: 'auto', mb: 4 }} />
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
-            <Box
+      <Grid container spacing={4}>
+        {programs.map((program, idx) => (
+          <Grid item xs={12} sm={6} md={3} key={idx}>
+            <Card
               sx={{
-                height: 260,
-                bgcolor: '#e0e0e0',
-                borderRadius: 2,
+                height: '100%',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                flexDirection: 'column',
+                borderRadius: 2,
+                boxShadow: 3,
+                transition: 'transform 0.3s',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                },
               }}
             >
-              <Typography>Placeholder: Impact Statistics Image</Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              Transforming Lives Through Education
-            </Typography>
-            <Typography sx={{ mb: 3 }}>
-              By leveraging technology and innovative training methods, we enhance the skills and employability of caregivers, ultimately improving the quality of life for the elderly population.
-            </Typography>
-            <Box>
-              {impactStats.map((stat, idx) => (
-                <Typography key={idx} sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <Box component="span" sx={{ color: '#2E3B55', fontWeight: 'bold', mr: 1 }}>✓</Box>
-                  {stat}
+              <Box
+                sx={{
+                  width: '100%',
+                  height: 180,
+                  bgcolor: '#f9f9f9',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                }}
+              >
+                <img
+                  src={program.src}
+                  alt={program.placeholder}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                  }}
+                />
+              </Box>
+              <CardContent sx={{ flexGrow: 1, p: 2 }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '1rem', mb: 1, color: '#2E3B55' }}>
+                  {program.title}
                 </Typography>
-              ))}
-            </Box>
+                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem' }}>
+                  {program.description}
+                </Typography>
+              </CardContent>
+            </Card>
           </Grid>
-        </Grid>
-      </Container>
+        ))}
+      </Grid>
+    </Container>
+  </Box>
 
-      {/* Call to Action */}
-      <Box sx={{ bgcolor: '#2E3B55', color: 'white', py: { xs: 6, md: 8 }, textAlign: 'center' }}>
-        <Container maxWidth="md">
-          <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2 }}>
-            Join Our Mission
-          </Typography>
-          <Typography sx={{ fontSize: '1.1rem', mb: 4 }}>
-            Help us build a sustainable model that supports caregivers in their professional journey and ensures that elderly individuals receive compassionate and competent care.
-          </Typography>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="large"
-            sx={{
-              px: 6,
-              py: 1.5,
-              fontSize: '1.1rem',
-              fontWeight: 'bold',
-              bgcolor: '#8bc34a',
-              color: '#2E3B55',
-              '&:hover': { bgcolor: '#7cb342' },
-            }}
-          >
-            Donate Now
-          </Button>
-        </Container>
+
+        {/* Call to Action */}
+        <Box sx={{ bgcolor: 'primary.main', color: 'white', py: { xs: 6, md: 8 }, textAlign: 'center' }}>
+          <Container maxWidth="md">
+            <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2, color: 'white' }}>
+              Join Our Mission
+            </Typography>
+            <Typography sx={{ fontSize: '1.1rem', mb: 4 }}>
+              Help us build a sustainable model that supports caregivers in their professional journey and ensures that elderly individuals receive compassionate and competent care.
+            </Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              sx={{
+                px: 6,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                bgcolor: '#8bc34a',
+                color: '#2E3B55',
+                '&:hover': { bgcolor: '#7cb342' },
+              }}
+            >
+              Donate Now
+            </Button>
+          </Container>
+        </Box>
       </Box>
-    </Box>
-  );
-};
+    );
+  };
 
-export default Home;
+  export default Home;

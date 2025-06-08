@@ -12,6 +12,9 @@ const Header = () => {
           <Button color="inherit">About</Button>
           <Button color="inherit">Campaigns</Button>
           <Button color="inherit">Contact</Button>
+          <Button color='inherit'>Login</Button>
+          <Button color='inherit'>Join.Care.Earn</Button>
+
         </Box>
       </Toolbar>
     </AppBar>
