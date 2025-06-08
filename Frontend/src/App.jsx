@@ -7,6 +7,9 @@ import Home from './components/Home/Home';
 import Navbar from './components/Navbar';
 import ProfilePage from './pages/ProfilePage';
 import CareSeeker from './pages/CareSeeker';
+import attendance from './pages/attendance';
+import LoginStepOne from './login';
+import LoginFormWithType from './Signup';
 
 // const { useState } = React;
 
@@ -23,7 +26,10 @@ function App() {
         {/* <Home/> */}
         {/* <ProfilePage role="caregiver" /> */}
         {/* <ProfilePage role="careseeker" /> */}
-        <CareSeeker/>
+        {/* <CareSeeker/> */}
+        {/* <attendance/> */}
+        {/* <LoginStepOne/> */}
+        <LoginFormWithType/>
       </div>
     </>
   )
